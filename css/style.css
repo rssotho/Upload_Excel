@@ -2,3 +2,31 @@
 {
     margin-top: 50px;
 }
+
+/* Inside a separate CSS file or style tag */
+
+/* Responsive margins for containers */
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Centered content */
+.text-center {
+    text-align: center;
+}
+
+/* Add padding to table cells */
+.table td, .table th {
+    padding: .75rem;
+}
+
+/* Add border radius to table */
+.table-bordered {
+    border-radius: 10px;
+}
+
+/* Add box shadow for a raised effect */
+.table-bordered {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
