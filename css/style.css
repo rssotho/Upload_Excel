@@ -8,6 +8,11 @@
     max-width: 500px;
 }
 
+#searchInput
+{
+    border: 1 solid green;
+
+}
 
 
 
