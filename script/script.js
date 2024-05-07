@@ -1,14 +1,17 @@
-$(document).ready(function () {
+$(document).ready(function () 
+{
     $('#search').hide();
     $('#searchInput').hide();
     $('.btns').hide();
 
-    $('#load_data').click(function () {
+    $('#load_data').click(function () 
+    {
         const fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
         const reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function (e) 
+        {
             const data = e.target.result;
             const workbook = XLSX.read(data, { type: 'array' });
             const sheetName = workbook.SheetNames[0];
@@ -22,46 +25,29 @@ $(document).ready(function () {
         reader.readAsArrayBuffer(file);
     });
 
-    $('#search').click(function () {
+    $('#search').click(function () 
+    {
         const searchInput = $('#searchInput').val().toLowerCase();
         const tableRows = $('#tableContainer tbody tr');
 
-        tableRows.each(function () {
+        tableRows.each(function () 
+        {
             const rowData = $(this).text().toLowerCase();
-            if (rowData.includes(searchInput)) {
+            if (rowData.includes(searchInput)) 
+            {
                 $(this).show();
-            } else {
+            } 
+            else 
+            {
                 $(this).hide();
             }
         });
     });
 
-    let currentPage = 0;
-    const rowsPerPage = 10; // Change this value as per your requirement
+    // Display the content from the document.
 
-    $('#prevPage').click(function () {
-        if (currentPage > 0) {
-            currentPage--;
-            showRows();
-        }
-    });
-
-    $('#nextPage').click(function () {
-        const totalRows = $('#tableContainer tbody tr').length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
-        if (currentPage < totalPages - 1) {
-            currentPage++;
-            showRows();
-        }
-    });
-
-    function showRows() {
-        const startIndex = currentPage * rowsPerPage;
-        const endIndex = startIndex + rowsPerPage;
-        $('#tableContainer tbody tr').hide().slice(startIndex, endIndex).show();
-    }
-
-    function displayData(data) {
+    function displayData(data) 
+    {
         const parsedData = Papa.parse(data, { header: true }).data;
         let tableHtml = '<table class="table"><thead><tr>';
 
@@ -91,4 +77,96 @@ $(document).ready(function () {
         // Display the first page initially
         showRows();
     }
+
+    // Pagination
+
+    let currentPage = 0;
+    const rowsPerPage = 10;
+
+    function showRows() 
+    {
+        const startIndex = currentPage * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        $('#tableContainer tbody tr').hide().slice(startIndex, endIndex).show();
+    }
+
+    // Prev BTN
+    $('#prevPage').click(function () 
+    {
+        if (currentPage > 0) {
+            currentPage--;
+            showRows();
+        }
+    });
+
+    // Next BTN
+    $('#nextPage').click(function () 
+    {
+        const totalRows = $('#tableContainer tbody tr').length;
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        if (currentPage < totalPages - 1) 
+        {
+            currentPage++;
+            showRows();
+        }
+    });
+        
+    // One
+    $('#one').click(function()
+    {
+        currentPage = 0;
+        showRows();
+    });
+
+    // Two
+    $('#two').click(function()
+    {
+        currentPage = 1;
+        showRows();
+    });
+
+    // Three
+    $('#three').click(function()
+    {
+        currentPage = 2;
+        showRows();
+    });
+
+    // Four
+    $('#four').click(function()
+    {
+        currentPage = 3;
+        showRows();
+    });
+
+    // Five
+    $('#five').click(function()
+    {
+        currentPage = 4;
+        showRows();
+    });
+
+    // Six
+    $('#six').click(function()
+    {
+        if (rowsPerPage === 0)
+        {
+            alert('No data');
+        }
+        else
+        {
+            currentPage = 5;
+            showRows();
+        }
+      
+    });
+
+    $('.page-link').click(function (e) 
+    {
+        e.preventDefault();
+        $('body').toggleClass('fixed-page');
+    });
+
+
+
 });
