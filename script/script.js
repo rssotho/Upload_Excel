@@ -1,4 +1,6 @@
-function processFile() {
+
+function processFile() 
+{
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
     const reader = new FileReader();
@@ -42,5 +44,5 @@ function processFile() {
     tableHtml += '</tbody></table>';
   
     document.getElementById('tableContainer').innerHTML = tableHtml;
-  }
+}
   
