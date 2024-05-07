@@ -1,19 +1,14 @@
-$(document).ready(function () 
-{
-    const upload = document.querySelector('#load_data');
-    const searchBtn = document.querySelector('#search');
-
+$(document).ready(function () {
     $('#search').hide();
     $('#searchInput').hide();
+    $('.btns').hide();
 
-    upload.addEventListener('click', function () 
-    {
+    $('#load_data').click(function () {
         const fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
         const reader = new FileReader();
 
-        reader.onload = function (e) 
-        {
+        reader.onload = function (e) {
             const data = e.target.result;
             const workbook = XLSX.read(data, { type: 'array' });
             const sheetName = workbook.SheetNames[0];
@@ -21,29 +16,50 @@ $(document).ready(function ()
             displayData(csvData);
         };
 
-        
+        $('.btns').show();
         $('#search').show();
         $('#searchInput').show();
         reader.readAsArrayBuffer(file);
     });
 
-    searchBtn.addEventListener('click', function () 
-    {
-        const searchInput = document.getElementById('searchInput').value.toLowerCase();
-        const tableRows = document.querySelectorAll('#tableContainer tbody tr');
+    $('#search').click(function () {
+        const searchInput = $('#searchInput').val().toLowerCase();
+        const tableRows = $('#tableContainer tbody tr');
 
-        tableRows.forEach(row => {
-            const rowData = row.textContent.toLowerCase();
+        tableRows.each(function () {
+            const rowData = $(this).text().toLowerCase();
             if (rowData.includes(searchInput)) {
-                row.style.display = '';
-            }
-            else {
-                row.style.display = 'none';
+                $(this).show();
+            } else {
+                $(this).hide();
             }
         });
     });
 
-    // Displaying the content from the document.
+    let currentPage = 0;
+    const rowsPerPage = 10; // Change this value as per your requirement
+
+    $('#prevPage').click(function () {
+        if (currentPage > 0) {
+            currentPage--;
+            showRows();
+        }
+    });
+
+    $('#nextPage').click(function () {
+        const totalRows = $('#tableContainer tbody tr').length;
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            showRows();
+        }
+    });
+
+    function showRows() {
+        const startIndex = currentPage * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        $('#tableContainer tbody tr').hide().slice(startIndex, endIndex).show();
+    }
 
     function displayData(data) {
         const parsedData = Papa.parse(data, { header: true }).data;
@@ -71,6 +87,8 @@ $(document).ready(function ()
         tableHtml += '</tbody></table>';
 
         document.getElementById('tableContainer').innerHTML = tableHtml;
-    }
 
+        // Display the first page initially
+        showRows();
+    }
 });

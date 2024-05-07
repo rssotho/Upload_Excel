@@ -8,10 +8,9 @@
     max-width: 500px;
 }
 
-#searchInput
+.btns
 {
-    border: 1 solid green;
-
+    padding-left: 28%;
 }
 
 
