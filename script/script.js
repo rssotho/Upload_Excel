@@ -1,33 +1,46 @@
-$(document).ready(function(){
- $('#load_data').click(function(){
-  $.ajax({
-   url:"../file/s.csv",
-   dataType:"text",
-   success:function(data)
-   {
-    var employee_data = data.split(/\r?\n|\r/);
-    var table_data = '<table class="table table-bordered table-striped">';
-    for(var count = 0; count<employee_data.length; count++)
+function processFile() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) 
     {
-     var cell_data = employee_data[count].split(",");
-     table_data += '<tr>';
-     for(var cell_count=0; cell_count<cell_data.length; cell_count++)
-     {
-      if(count === 0)
+      const data = e.target.result;
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const csvData = XLSX.utils.sheet_to_csv(workbook.Sheets[sheetName]);
+      displayData(csvData);
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+
+  function displayData(data) 
+  {
+    const parsedData = Papa.parse(data, { header: true }).data;
+    let tableHtml = '<table class="table"><thead><tr>';
+    
+    // Generate table headers
+    Object.keys(parsedData[0]).forEach(key => 
+    {
+      tableHtml += `<th>${key}</th>`;
+    });
+    
+    tableHtml += '</tr></thead><tbody>';
+  
+    // Generate table rows
+    parsedData.forEach(row => 
+    {
+      tableHtml += '<tr>';
+      Object.values(row).forEach(value => 
       {
-       table_data += '<th>'+cell_data[cell_count]+'</th>';
-      }
-      else
-      {
-       table_data += '<td>'+cell_data[cell_count]+'</td>';
-      }
-     }
-     table_data += '</tr>';
-    }
-    table_data += '</table>';
-    $('#employee_table').html(table_data);
-   }
-  });
- });
- 
-});
+        tableHtml += `<td>${value}</td>`;
+      });
+        tableHtml += '</tr>';
+    });
+  
+    tableHtml += '</tbody></table>';
+  
+    document.getElementById('tableContainer').innerHTML = tableHtml;
+  }
+  
