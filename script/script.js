@@ -1,10 +1,13 @@
-$(document).ready(function () {
+$(document).ready(function () 
+{
     $('#search').hide();
     $('#searchInput').hide();
     $('.btns').hide();
 
-    $('#load_data').click(function () {
-        const fileInput = document.getElementById('fileInput');
+    // Display the content
+    $('#load_data').click(function () 
+    {
+        let fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
         const reader = new FileReader();
 
@@ -32,6 +35,7 @@ $(document).ready(function () {
 
             // Initialize DataTable
             $('#dataTable').DataTable();
+            showRows();
 
         };
 
@@ -47,6 +51,8 @@ $(document).ready(function () {
                 scrollX: true,
                 searching: false,
                 paging: false,
+                responsive: true,
+                destroy: true,
         });
     });
 
@@ -86,4 +92,29 @@ $(document).ready(function () {
     }
     
 
+    // Displaying the content from the document.
+    let currentPage = 0;
+    const rowsPerPage = 10; // Change this value as per your requirement
+
+    $('#prevPage').click(function () {
+        if (currentPage > 0) {
+            currentPage--;
+            showRows();
+        }
+    });
+
+    $('#nextPage').click(function () {
+        const totalRows = $('#dataTable tbody tr').length;
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            showRows();
+        }
+    });
+
+    function showRows() {
+        const startIndex = currentPage * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        $('#dataTable tbody tr').hide().slice(startIndex, endIndex).show();
+    }
 });
