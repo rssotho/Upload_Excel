@@ -1,5 +1,4 @@
-$(document).ready(function () 
-{
+$(document).ready(function () {
     $('#search').hide();
     $('#searchInput').hide();
     $('.btns').hide();
@@ -30,9 +29,12 @@ $(document).ready(function ()
 
                 table.appendChild(tableRow);
             });
-            $('#dataTable').DataTable();            
+
+            // Initialize DataTable
+            $('#dataTable').DataTable();
 
         };
+
         reader.readAsBinaryString(file);
 
         $('.btns').show();
@@ -41,31 +43,47 @@ $(document).ready(function ()
 
         $('#dataTable').DataTable
         ({
-            autoWidth: false,
-            scrollX: true,
-            searching: false,
-            paging: false
+                autoWidth: false,
+                scrollX: true,
+                searching: false,
+                paging: false,
         });
+    });
 
-         // Search functionality
-    $('#search').click(function () {
+    // Search functionality
+    $('#search').click(function () 
+    {
         searchTable();
     });
-    });
+
+    // Search Function
 
     function searchTable() 
     {
-        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
         const tableRows = document.querySelectorAll('#dataTable tbody tr');
     
-        tableRows.forEach(row => 
-        {
-            const rowData = row.textContent.toLowerCase();
-            if (rowData.includes(searchInput)) {
+        if (searchInput === '') 
+            {
+            
+            tableRows.forEach(row => 
+            {
                 row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
+            });
+        } 
+        else 
+        {
+            tableRows.forEach(row => 
+            {
+                const rowData = row.textContent.toLowerCase();
+                if (rowData.includes(searchInput)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
     }
+    
+
 });
