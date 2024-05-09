@@ -82,9 +82,12 @@ $(document).ready(function ()
             tableRows.forEach(row => 
             {
                 const rowData = row.textContent.toLowerCase();
-                if (rowData.includes(searchInput)) {
+                if (rowData.includes(searchInput)) 
+                {
                     row.style.display = '';
-                } else {
+                } 
+                else 
+                {
                     row.style.display = 'none';
                 }
             });
@@ -96,23 +99,28 @@ $(document).ready(function ()
     let currentPage = 0;
     const rowsPerPage = 10; // Change this value as per your requirement
 
-    $('#prevPage').click(function () {
-        if (currentPage > 0) {
+    $('#prevPage').click(function () 
+    {
+        if (currentPage > 0) 
+        {
             currentPage--;
             showRows();
         }
     });
 
-    $('#nextPage').click(function () {
+    $('#nextPage').click(function () 
+    {
         const totalRows = $('#dataTable tbody tr').length;
         const totalPages = Math.ceil(totalRows / rowsPerPage);
-        if (currentPage < totalPages - 1) {
+        if (currentPage < totalPages - 1) 
+        {
             currentPage++;
             showRows();
         }
     });
 
-    function showRows() {
+    function showRows() 
+    {
         const startIndex = currentPage * rowsPerPage;
         const endIndex = startIndex + rowsPerPage;
         $('#dataTable tbody tr').hide().slice(startIndex, endIndex).show();

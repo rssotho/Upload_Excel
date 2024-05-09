@@ -10,28 +10,11 @@
 {
     padding-left: 25%;
 }
-
-.container 
+#search
 {
-    margin-top: 10px;
+    margin-bottom: 5%;
 }
 
-.text-center 
-{
-    text-align: center;
-}
 
-.table td, .table th 
-{
-    padding: .75rem;
-}
 
-.table-bordered 
-{
-    border-radius: 10px;
-}
 
-.table-bordered 
-{
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}

@@ -1,0 +1,40 @@
+1. Introduction:
+
+* The objective of this project is to develop a frontend application that allows users to upload CSV or Excel files and display the content in a table format. The application is built using HTML, CSS, JavaScript, and Bootstrap. Version control was managed using Git, with the repository hosted on GitHub for pushing, and revision tracking.
+
+2. User Interface Design:
+* The user interface is designed with simplicity and usability. HTML provided the structure of the interface, while Bootstrap and CSS is used for styling to ensure responsiveness and consistency across different devices. 
+* The main features of the interface include:
+- A clean layout with intuitive navigation.
+- A file upload button allowing users to select and submit their CSV or Excel files only and does not allow nor show or display different extension.
+
+3. File Processing:
+
+* JavaScript was employed to manage file input and processing. 
+* Key aspects of file processing include:
+- Utilization of the FileReader API to read files directly in the browser.
+- Integration of libraries such as PapaParse for parsing CSV files and SheetJS for parsing Excel files, enabling efficient handling of different file formats.
+
+4. Data Display:
+
+* The uploaded file's content was dynamically displayed in a table format using HTML. The data parsing results were populated into the table cells, enabling users to view. 
+*Noteworthy aspects of data display include:
+- Integration of DataTables JS to enhance table functionality, such as pagination and searching.
+- Pagination functionality to manage large datasets efficiently with the rows of 10 per page.
+- Implementation of search functionality to enable users to filter data based on specific criteria.
+
+5. Styling:
+
+* CSS and Bootstrap were used for styling to create a visually appealing and responsive layout. 
+* Styling considerations included:
+- Consistent use of Bootstrap classes for styling elements, ensuring a cohesive design.
+- Custom CSS rules to enhance the visual presentation and improve readability.
+- Responsive design to ensure optimal viewing experience across various screen sizes and devices.
+
+6. Version Control:
+
+* Git was utilized for version control, with regular commit practices ensuring proper tracking of changes throughout the development process. 
+
+7. Conclusion:
+
+* In conclusion, the frontend application successfully achieved its objectives of enabling users to upload CSV or Excel files and display the content in a table format. By leveraging HTML, CSS, JavaScript, and Bootstrap, along with libraries for file processing, the application provides a user-friendly interface with efficient data handling and display capabilities. Version control using Git and GitHub ensured effective progressing, and tracking code management throughout the project lifecycle.
