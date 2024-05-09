@@ -7,26 +7,27 @@ $(document).ready(function ()
     // Display the content
     $('#load_data').click(function () 
     {
-        let fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
+        let file_inputs = document.getElementById('file_input');
+        const file = file_inputs.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) 
         {
-            const data = e.target.result;
-            const workbook = XLSX.read(data, { type: 'binary' });
-            const sheetName = workbook.SheetNames[0];
-            const sheet = workbook.Sheets[sheetName];
-            const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+            const info = e.target.result;
+            const details = XLSX.read(info, { type: 'binary' });
+            const document_name = details.SheetNames[0];
+            const sheet = details.Sheets[document_name];
+            const data_js = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
             // Clear existing table data
-            const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+            const table = document.getElementById('data_table').getElementsByTagName('tbody')[0];
             table.innerHTML = '';
 
-            jsonData.forEach(function (row) 
+            data_js.forEach(function (row) 
             {
                 const tableRow = document.createElement('tr');
-                row.forEach(function (cell) {
+                row.forEach(function (cell) 
+                {
                     const tableCell = document.createElement('td');
                     tableCell.textContent = cell;
                     tableRow.appendChild(tableCell);
@@ -36,7 +37,7 @@ $(document).ready(function ()
             });
 
             // Initialize DataTable
-            $('#dataTable').DataTable();
+            $('#data_table').DataTable();
             showRows();
 
         };
@@ -47,7 +48,7 @@ $(document).ready(function ()
         $('#search').show();
         $('#searchInput').show();
 
-        $('#dataTable').DataTable
+        $('#data_table').DataTable
             ({
                 autoWidth: false,
                 scrollX: true,
@@ -69,7 +70,7 @@ $(document).ready(function ()
 
     function searchTable() {
         const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
-        const tableRows = document.querySelectorAll('#dataTable tbody tr');
+        const tableRows = document.querySelectorAll('#data_table tbody tr');
 
         if (searchInput === '') 
         {
@@ -103,9 +104,9 @@ $(document).ready(function ()
 
     // Displaying the content from the document.
     let currentPage = 0;
-    const rowsPerPage = 10; // Change this value as per your requirement
+    const rowsPerPage = 10; 
 
-    $('#prevPage').click(function () 
+    $('#prev_page').click(function () 
     {
         if (currentPage > 0) {
             currentPage--;
@@ -113,9 +114,9 @@ $(document).ready(function ()
         }
     });
 
-    $('#nextPage').click(function () 
+    $('#next_page').click(function () 
     {
-        const totalRows = $('#dataTable tbody tr').length;
+        const totalRows = $('#data_table tbody tr').length;
         const totalPages = Math.ceil(totalRows / rowsPerPage);
         if (currentPage < totalPages - 1) 
         {
@@ -128,6 +129,6 @@ $(document).ready(function ()
     {
         const startIndex = currentPage * rowsPerPage;
         const endIndex = startIndex + rowsPerPage;
-        $('#dataTable tbody tr').hide().slice(startIndex, endIndex).show();
+        $('#data_table tbody tr').hide().slice(startIndex, endIndex).show();
     }
 });
