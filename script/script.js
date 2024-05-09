@@ -1,15 +1,18 @@
-$(document).ready(function () {
+$(document).ready(function () 
+{
     $('#search').hide();
     $('#searchInput').hide();
     $('.btns').hide();
 
     // Display the content
-    $('#load_data').click(function () {
+    $('#load_data').click(function () 
+    {
         let fileInput = document.getElementById('fileInput');
         const file = fileInput.files[0];
         const reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function (e) 
+        {
             const data = e.target.result;
             const workbook = XLSX.read(data, { type: 'binary' });
             const sheetName = workbook.SheetNames[0];
@@ -20,7 +23,8 @@ $(document).ready(function () {
             const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
             table.innerHTML = '';
 
-            jsonData.forEach(function (row) {
+            jsonData.forEach(function (row) 
+            {
                 const tableRow = document.createElement('tr');
                 row.forEach(function (cell) {
                     const tableCell = document.createElement('td');
@@ -50,13 +54,13 @@ $(document).ready(function () {
                 searching: false,
                 paging: false,
                 responsive: true,
-                destroy: true,
-                fixedHeader: true
+                destroy: true,                
             });
     });
 
     // Search functionality
-    $('#search').click(function (event) {
+    $('#search').click(function (event) 
+    {
         event.preventDefault();
         searchTable();
     });
@@ -67,19 +71,25 @@ $(document).ready(function () {
         const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
         const tableRows = document.querySelectorAll('#dataTable tbody tr');
 
-        if (searchInput === '') {
+        if (searchInput === '') 
+        {
 
-            tableRows.forEach(row => {
+            tableRows.forEach(row => 
+            {
                 row.style.display = '';
+                showRows();
             });
         }
         else {
-            tableRows.forEach(row => {
+            tableRows.forEach(row => 
+            {
                 const rowData = row.textContent.toLowerCase();
-                if (rowData.includes(searchInput)) {
+                if (rowData.includes(searchInput)) 
+                {
                     row.style.display = '';
                 }
-                else {
+                else 
+                {
                     row.style.display = 'none';
                 }
             });
@@ -95,23 +105,27 @@ $(document).ready(function () {
     let currentPage = 0;
     const rowsPerPage = 10; // Change this value as per your requirement
 
-    $('#prevPage').click(function () {
+    $('#prevPage').click(function () 
+    {
         if (currentPage > 0) {
             currentPage--;
             showRows();
         }
     });
 
-    $('#nextPage').click(function () {
+    $('#nextPage').click(function () 
+    {
         const totalRows = $('#dataTable tbody tr').length;
         const totalPages = Math.ceil(totalRows / rowsPerPage);
-        if (currentPage < totalPages - 1) {
+        if (currentPage < totalPages - 1) 
+        {
             currentPage++;
             showRows();
         }
     });
 
-    function showRows() {
+    function showRows() 
+    {
         const startIndex = currentPage * rowsPerPage;
         const endIndex = startIndex + rowsPerPage;
         $('#dataTable tbody tr').hide().slice(startIndex, endIndex).show();
