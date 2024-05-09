@@ -15,8 +15,10 @@
 * JavaScript was employed to manage file input and processing. 
 * Key aspects of file processing include:
 - Utilization of the FileReader API to read files directly in the browser.
-- Integration of libraries such as PapaParse for parsing CSV files and SheetJS for parsing Excel files, enabling efficient handling of different file formats.
-- When a file is selected, it's read as binary data, allowing for parsing of both CSV and Excel formats.
+- Integration of libraries such as SheetJS for parsing Excel files, enabling efficient handling of different file formats.
+- When a file is selected, it's read as binary data, allowing for parsing Excel formats.
+- CSV files are already in a plain text format where each line represents a row and each comma-separated value represents a cell.
+- With the condition on html, when you read a CSV file using the FileReader API, you get the raw text content of the file, which can be directly processed without conversion.
 
 4. Data Display:
 
